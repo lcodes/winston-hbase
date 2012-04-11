@@ -9,6 +9,7 @@
     },
     "keywords": ["logging", "sysadmin", "tools", "winston", "hbase"],
     "dependencies": {
+        "winston": ">=0.5.11",
         "hbase": ">=0.1.0"
     },
     "devDependencies": {
