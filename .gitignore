@@ -1,0 +1,51 @@
+
+# Reference:
+# https://github.com/github/gitignore
+
+# Coffee-Script
+# =============
+
+*.js
+
+# Node
+# ====
+
+*.log
+*.pid
+
+logs
+node_modules
+npm-debug.log
+
+# Emacs
+# =====
+
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-lise
+tramp
+.\#*
+
+# OSX
+# ===
+
+.DS_Store
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-v100
+.Trashes
+
+# Windows
+# =======
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini

@@ -1,0 +1,21 @@
+{
+    "name": "winston-hbase",
+    "description": "A HBase transport for winston",
+    "version": "0.0.1",
+    "author": "Jeremie Pelletier <jeremiep@gmail.com>",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:ddude/winston-hbase.git"
+    },
+    "keywords": ["logging", "sysadmin", "tools", "winston", "hbase"],
+    "dependencies": {
+        "hbase": ">=0.1.0"
+    },
+    "devDependencies": {
+        "coffee-script": ">=1.2.0"
+    },
+    "main": "./lib/winston-hbase",
+    "engines": {
+        "node": ">=0.4.0"
+    }
+}
