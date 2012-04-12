@@ -1,9 +1,5 @@
 # -*- mode: Coffee; tab-width: 4; fill-column: 80; comment-column: 40; -*-
 
-#
-#
-#
-
 winston = require "winston"
 hbase = require "hbase"
 
@@ -39,41 +35,32 @@ class HBase extends winston.Transport
             if !exists then @$createTable() else @$setReady()
 
     $createTable: ->
-        opts =
-            IS_META: false,
-            IS_ROOT: false,
-            COLUMNS: [
-                {NAME: "timestamp"}
-                {NAME: "level"}
-                {NAME: "msg"}
-                {NAME: "meta"}
-            ]
-
-        @table.create opts, winstonCallback (success) =>
+        @table.create "log", winstonCallback (success) =>
             throw new Error "Failed to create hbase log table." unless success
             @$setReady()
 
     $setReady: ->
-        console.log "setReady"
         @ready = true
         @$log e for e in @_logs
         @_logs = []
 
-    columnNames: ["timestamp", "level", "msg", "meta"]
+    columnNames: ["log:timestamp", "log:level", "log:message", "log:metadata"]
 
     log: (level, msg, meta, callback) ->
-        console.log "log"
+        return if not level? or not msg?
         entry =
             timestamp: (new Date).getMilliseconds()
             level: level
             msg: msg
-            meta: meta
-
+            meta: meta ? {}
         if @ready then @$log entry else @_logs.push entry
 
     $log: (e) ->
-        row = @table.getRow e.timestamp # TODO: salt the key with something, if two machines log at the same millisecond only the last to save is kept
-        debugger
+        row = @table.getRow e.timestamp # TODO: salt the key with something, if
+                                        # two machines log at the same
+                                        # millisecond only the last to save is
+                                        # kept
+
         row.put @columnNames, [e.timestamp, e.level, e.msg, e.meta], winstonCallback (success) =>
             throw Error "Failed to insert log in HBase" unless success
 
